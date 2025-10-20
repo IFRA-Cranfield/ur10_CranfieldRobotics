@@ -1,0 +1,9 @@
+# UR10 - Cranfield University:
+
+Configurations:
+
+  - ID: "ur10cranfield_1"
+    Name: "UR10 Robot alone on Cranfield University (IA Lab) Table."
+    urdf: "ur10cranfield_1.urdf.xacro"
+    rob: "ur10"
+    ee: "none"

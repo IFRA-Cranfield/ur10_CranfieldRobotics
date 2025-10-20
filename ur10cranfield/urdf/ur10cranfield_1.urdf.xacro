@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+
+<!-- 
+
+# ===================================== COPYRIGHT ===================================== #
+#                                                                                       #
+#  IFRA (Intelligent Flexible Robotics and Assembly) Group, CRANFIELD UNIVERSITY        #
+#  Created on behalf of the IFRA Group at Cranfield University, United Kingdom          #
+#  E-mail: IFRA@cranfield.ac.uk                                                         #
+#                                                                                       #
+#  Licensed under the Apache-2.0 License.                                               #
+#  You may not use this file except in compliance with the License.                     #
+#  You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0  #
+#                                                                                       #
+#  Unless required by applicable law or agreed to in writing, software distributed      #
+#  under the License is distributed on an "as-is" basis, without warranties or          #
+#  conditions of any kind, either express or implied. See the License for the specific  #
+#  language governing permissions and limitations under the License.                    #
+#                                                                                       #
+#  IFRA Group - Cranfield University                                                    #
+#  AUTHORS: Mikel Bueno Viso - Mikel.Bueno-Viso@cranfield.ac.uk                         #
+#           Dr. Seemal Asif  - s.asif@cranfield.ac.uk                                   #
+#           Prof. Phil Webb  - p.f.webb@cranfield.ac.uk                                 #
+#                                                                                       #
+#  Date: October, 2025.                                                                 #
+#                                                                                       #
+# ===================================== COPYRIGHT ===================================== #
+
+# ======= CITE OUR WORK ======= #
+# You can cite our work with the following statements:
+# IFRA-Cranfield (2023) ROS 2 Sim-to-Real Robot Control. URL: https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl.
+# IFRA-Cranfield (2025) ROS 2 Sim-to-Real Robot Control. UR10 Robot. URL: https://github.com/IFRA-Cranfield/ur10_CranfieldRobotics.
+
+-->
+
+<robot name="ur10" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- PASS ARGUMENTS: -->
+  <xacro:arg name="bringup" default="false"/>
+  <xacro:property name="bringup" value="$(arg bringup)"/>
+  <xacro:arg name="robot_ip" default="0.0.0.0"/>
+  <xacro:property name="robot_ip" value="$(arg robot_ip)"/>
+
+  <xacro:arg name="EE" default="false"/>
+  <xacro:property name="EE" value="$(arg EE)"/>
+  <xacro:arg name="EE_name" default="none"/>
+  <xacro:property name="EE_name" value="$(arg EE_name)"/>
+
+  <!-- UR10 Control ARGUMENTS -->
+  <xacro:arg name="script_filename" default="none"/>
+  <xacro:property name="script_filename" value="$(arg script_filename)"/>
+  <xacro:arg name="input_recipe_filename" default="none"/>
+  <xacro:property name="input_recipe_filename" value="$(arg input_recipe_filename)"/>
+  <xacro:arg name="output_recipe_filename" default="none"/>
+  <xacro:property name="output_recipe_filename" value="$(arg output_recipe_filename)"/>
+
+  <!-- Include XACRO-MACRO file of the UR10: -->
+  <xacro:include filename="$(find ros2srrc_robots)/ur10/urdf/ur10_macro.urdf.xacro"/>	
+  <xacro:ur10 
+    bringup="${bringup}"
+    robot_ip="${robot_ip}"
+    EE="${EE}"
+    EE_name="${EE_name}"
+
+    script_filename="${script_filename}"
+    input_recipe_filename="${input_recipe_filename}"
+    output_recipe_filename="${output_recipe_filename}"
+  />
+
+  <!-- Load ROS 2 Gazebo Plugin -->
+  <xacro:unless value="${bringup}">
+    
+    <gazebo>
+      <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
+
+        <!-- UR10 Controller -->
+        <parameters>$(find ros2srrc_robots)/ur10/config/controller.yaml</parameters>
+
+      </plugin>
+    </gazebo>
+
+  </xacro:unless>
+
+  <!-- World: LINK -->
+  <link name="world"/>
+  
+  <!-- Robot TABLE: LINK -->
+  <link name='ur10_table'>
+    <visual>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file://$(find ur10cranfield)/meshes/ur10table/ur10_TABLE.dae" scale="1 1 1" />
+      </geometry>
+      <material name="grey">
+        <color rgba="0.9 0.9 0.9 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file://$(find ur10cranfield)/meshes/ur10table/ur10_TABLE_collision.stl" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1000.0"/>
+      <inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0" />
+    </inertial>
+  </link>
+
+  <!-- Robot TABLE: FIXED JOINT -->
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "ur10_table" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- Robot TABLE: Robot+TABLE JOINT -->
+  <joint name="ur_joint" type="fixed">
+    <parent link="ur10_table" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.91" rpy="0.0 0.0 0.0" /> 
+  </joint>
+
+</robot>
