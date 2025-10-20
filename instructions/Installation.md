@@ -14,7 +14,7 @@ __Download and install ur10_CranfieldRobotics__
 
 ```sh
 cd ~/dev_ws/src
-git clone https://github.com/IFRA-Cranfield/ur10_CranfieldRobotics
+git clone -b humble-gzfortress https://github.com/IFRA-Cranfield/ur10_CranfieldRobotics
 cd ~/dev_ws
 colcon build
 ```
