@@ -2,25 +2,25 @@
 
 ## UR10 Robot Simulation and Control using ROS 2: Practical Examples
 
-### Gazebo Fortress / GZ Sim
+### Gazebo Harmonic / GZ Sim
 
-This environment does not have any particular use/application, but simply visualizing the UR10 robot and its end-effectors and stand in the simulation environment. Execute the following command to launch a Gazebo Fortress / GZ Sim environment of the UR10-Cranfield Robot:
+This environment does not have any particular use/application, but simply visualizing the UR10 robot and its end-effectors and stand in the simulation environment. Execute the following command to launch a Gazebo Harmonic / GZ Sim environment of the UR10-Cranfield Robot:
 
 ```sh
 # UR10 Robot alone on Cranfield University (IA Lab) Table:
 ros2 launch ros2srrc_launch simulation.launch.py package:=ur10cranfield config:=ur10cranfield_1
 ```
 
-### Gazebo Fortress / GZ Sim + MoveIt!2-based Robot Control
+### Gazebo Harmonic / GZ Sim + MoveIt!2-based Robot Control
 
-Execute the following command to launch the Gazebo Fortress / GZ Sim environment along with the MoveIt!2 Framework, enabling the robot to be controlled, monitored, and operated through MoveIt!2. It also loads RViz for visualization and gives access to the custom ROS 2 tools (/Move, /Robmove, /Robpose) for robot manipulation and monitoring.
+Execute the following command to launch the Gazebo Harmonic / GZ Sim environment along with the MoveIt!2 Framework, enabling the robot to be controlled, monitored, and operated through MoveIt!2. It also loads RViz for visualization and gives access to the custom ROS 2 tools (/Move, /Robmove, /Robpose) for robot manipulation and monitoring.
 
 ```sh
 # UR10 Robot alone on Cranfield University (IA Lab) Table:
 ros2 launch ros2srrc_launch moveit2.launch.py package:=ur10cranfield config:=ur10cranfield_1
 ```
 
-Once the environment has been launched, there are few operations that can be done to interact with the robot. For more information, please have a look at this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/humble-gzfortress/instructions/RobotOperation.md).
+Once the environment has been launched, there are few operations that can be done to interact with the robot. For more information, please have a look at this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/jazzy/instructions/RobotOperation.md).
 
 - Robot movement:
 
@@ -53,7 +53,7 @@ Once the environment has been launched, there are few operations that can be don
     ros2 topic echo /Robpose
     ```
 
-- Execute a robot program: The programs for the UR10-Cranfield Robot are stored inside the ur10cranfield ROS 2 package, /programs folder. The following command is used to execute the programs (for more information, access this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/humble-gzfortress/instructions/ProgramExecution.md)):
+- Execute a robot program: The programs for the UR10-Cranfield Robot are stored inside the ur10cranfield ROS 2 package, /programs folder. The following command is used to execute the programs (for more information, access this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/jazzy/instructions/ProgramExecution.md)):
 
     ```sh
     # Example for the ur10_demo.yaml program:
