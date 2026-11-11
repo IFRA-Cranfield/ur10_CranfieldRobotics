@@ -20,7 +20,7 @@ Execute the following command to launch the ROS 2-Gazebo Simulation Environment 
 ros2 launch ros2srrc_launch moveit2.launch.py package:=ur10cranfield config:=ur10cranfield_1
 ```
 
-Once the environment has been launched, there are few operations that can be done to interact with the robot. For more information, please have a look at this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/humble/instructions/RobotOperation.md).
+Once the environment has been launched, there are few operations that can be done to interact with the robot. For more information, please have a look at this [link](https://github.com/IFRA-Cranfield/ros2srrc/blob/humble/instructions/RobotOperation.md).
 
 - Robot Movement: 
 
@@ -53,7 +53,7 @@ Once the environment has been launched, there are few operations that can be don
     ros2 topic echo /Robpose
     ```
 
-- Execute a Robot Program: The programs for the UR10-Cranfield Robot are stored inside the ur10cranfield ROS 2 Package, /programs folder. The following command is used to execute the programs (for more information, access this [link](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/humble/instructions/ProgramExecution.md)):
+- Execute a Robot Program: The programs for the UR10-Cranfield Robot are stored inside the ur10cranfield ROS 2 Package, /programs folder. The following command is used to execute the programs (for more information, access this [link](https://github.com/IFRA-Cranfield/ros2srrc/blob/humble/instructions/ProgramExecution.md)):
 
     ```sh
     # Example for the ur10_demo.yaml program:
